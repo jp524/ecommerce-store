@@ -1,0 +1,16 @@
+.product-detail {
+  display: grid;
+  grid-template-columns: 40% 1fr;
+}
+
+.product-detail__description {
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-detail__variables {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
