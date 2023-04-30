@@ -6,7 +6,11 @@ import { fill } from '@cloudinary/url-gen/actions/resize';
 import cloud from '../../utils/cloud';
 import './ProductDetail.css';
 
-const ProductDetail = () => {
+interface Props {
+  onAddToCart: (cartItem: { productId: number; size: string }) => void;
+}
+
+const ProductDetail = (props: Props) => {
   const { id } = useParams();
   const [product, setProduct] = useState({
     id: 0,
@@ -33,6 +37,11 @@ const ProductDetail = () => {
 
   const sizeHandler = (e: { target: { value: string } }) => {
     setSize(e.target.value);
+  };
+
+  const addToCart = () => {
+    const cartItem = { productId: product.id, size: size };
+    props.onAddToCart(cartItem);
   };
 
   const image = cloud.image(product.image_id);
@@ -64,7 +73,7 @@ const ProductDetail = () => {
               </option>
             ))}
           </select>
-          <button>Add to Cart</button>
+          <button onClick={addToCart}>Add to Cart</button>
         </div>
       </div>
     </div>
