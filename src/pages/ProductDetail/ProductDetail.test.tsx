@@ -10,7 +10,8 @@ describe('ProductDetail', () => {
       useParams: (): Readonly<Params<string>> => ({ id: '0' }),
     }));
 
-    render(<ProductDetail />);
+    const addToCartMock = vi.fn();
+    render(<ProductDetail onAddToCart={addToCartMock} />);
   });
 
   it('renders product name when given valid url params', () => {
@@ -29,5 +30,21 @@ describe('ProductDetail', () => {
     expect(screen.getByRole('option', { name: 'S' }).selected).toBe(false);
     expect(screen.getByRole('option', { name: 'M' }).selected).toBe(true);
     expect(screen.getByRole('option', { name: 'L' }).selected).toBe(false);
+  });
+});
+
+describe('ProductDetailMock', () => {
+  it('calls onAddToCart with the correct arguments', async () => {
+    vi.mock('react-router-dom', () => ({
+      useParams: (): Readonly<Params<string>> => ({ id: '0' }),
+    }));
+    const addToCartMock = vi.fn();
+    render(<ProductDetail onAddToCart={addToCartMock} />);
+
+    const user = userEvent.setup();
+    const button = screen.getByRole('button', { name: 'Add to Cart' });
+    await user.click(button);
+
+    expect(addToCartMock).toHaveBeenCalledWith({ productId: 0, size: 'S' });
   });
 });
