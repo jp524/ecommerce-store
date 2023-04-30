@@ -9,7 +9,7 @@ import IdGuard from './components/IdGuard/IdGuard';
 const App = () => {
   const [cart, setCart] = useState<
     { productId: number; size: string; quantity: number }[]
-  >([]);
+  >([{ productId: 0, size: 'M', quantity: 2 }]);
 
   const addToCartHandler = (cartItem: { productId: number; size: string }) => {
     setCart((prevState) => [
@@ -32,7 +32,7 @@ const App = () => {
           path="/shop/:id"
           element={<IdGuard onAddToCart={addToCartHandler} />}
         />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/cart" element={<Cart cartContent={cart} />} />
       </Routes>
     </BrowserRouter>
   );
