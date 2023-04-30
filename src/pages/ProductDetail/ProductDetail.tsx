@@ -17,7 +17,6 @@ const ProductDetail = () => {
     image_id: '',
   });
   const [size, setSize] = useState('');
-  const [quantity, setQuantity] = useState(0);
 
   const filterProductList = (id: number) => {
     const result = productList.filter((product) => product.id == id).shift();
@@ -27,6 +26,14 @@ const ProductDetail = () => {
   useEffect(() => {
     filterProductList(Number(id));
   }, []);
+
+  useEffect(() => {
+    setSize(product.sizes[0]);
+  }, [product]);
+
+  const sizeHandler = (e: { target: { value: string } }) => {
+    setSize(e.target.value);
+  };
 
   const image = cloud.image(product.image_id);
   const transformedImage = image.resize(fill().width(300).aspectRatio('3:4'));
@@ -45,18 +52,18 @@ const ProductDetail = () => {
 
         <div className="product-detail__variables">
           <label>Sizes</label>
-          <select name="size">
+          <select
+            name="size"
+            value={size}
+            onChange={sizeHandler}
+            data-testid="select"
+          >
             {product.sizes.map((sizeOption) => (
               <option value={sizeOption} key={sizeOption}>
                 {sizeOption}
               </option>
             ))}
           </select>
-          <div className="product-detail__quantity">
-            <button>-</button>
-            <input type="text" value={quantity} />
-            <button>+</button>
-          </div>
           <button>Add to Cart</button>
         </div>
       </div>
