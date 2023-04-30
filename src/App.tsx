@@ -3,8 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Nav from './components/Nav/Nav';
 import Home from './pages/Home/Home';
 import Shop from './pages/Shop/Shop';
-import ProductDetail from './pages/ProductDetail/ProductDetail';
 import Cart from './pages/Cart/Cart';
+import IdGuard from './components/IdGuard/IdGuard';
 
 const App = () => {
   const [cart, setCart] = useState<
@@ -30,7 +30,7 @@ const App = () => {
         <Route path="/shop" element={<Shop />} />
         <Route
           path="/shop/:id"
-          element={<ProductDetail onAddToCart={addToCartHandler} />}
+          element={<IdGuard onAddToCart={addToCartHandler} />}
         />
         <Route path="/cart" element={<Cart />} />
       </Routes>
