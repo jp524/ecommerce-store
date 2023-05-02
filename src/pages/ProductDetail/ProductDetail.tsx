@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import productList from '../../utils/productList';
 import { AdvancedImage } from '@cloudinary/react';
 import { fill } from '@cloudinary/url-gen/actions/resize';
 import cloud from '../../utils/cloud';
+import filterProductList from '../../utils/filterProductList';
 import './ProductDetail.css';
 
 interface Props {
@@ -22,13 +22,8 @@ const ProductDetail = (props: Props) => {
   });
   const [size, setSize] = useState('');
 
-  const filterProductList = (id: number) => {
-    const result = productList.filter((product) => product.id == id).shift();
-    setProduct(result!);
-  };
-
   useEffect(() => {
-    filterProductList(Number(id));
+    setProduct(filterProductList(Number(id))!);
   }, []);
 
   useEffect(() => {

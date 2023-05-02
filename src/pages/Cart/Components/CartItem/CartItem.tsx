@@ -2,14 +2,11 @@ import { useState, useEffect } from 'react';
 import { AdvancedImage } from '@cloudinary/react';
 import { fill } from '@cloudinary/url-gen/actions/resize';
 import cloud from '../../../../utils/cloud';
-import productList from '../../../../utils/productList';
+import CartItemProps from './CartItemProps';
+import filterProductList from '../../../../utils/filterProductList';
 import './CartItem.css';
 
-const CartItem = (props: {
-  productId: number;
-  size: string;
-  quantity: number;
-}): JSX.Element => {
+const CartItem = (props: CartItemProps): JSX.Element => {
   const [product, setProduct] = useState({
     id: 0,
     category: '',
@@ -18,17 +15,9 @@ const CartItem = (props: {
     sizes: [''],
     image_id: '',
   });
-  const [itemCost, setItemCost] = useState(product.price * props.quantity);
-
-  const filterProductList = () => {
-    const result = productList
-      .filter((product) => product.id == props.productId)
-      .shift();
-    setProduct(result!);
-  };
 
   useEffect(() => {
-    filterProductList();
+    setProduct(filterProductList(props.productId)!);
   }, []);
 
   const image = cloud.image(product.image_id);
@@ -53,7 +42,7 @@ const CartItem = (props: {
 
       <div className="cart-item__description__right">
         <button>Remove</button>
-        <p>${itemCost}</p>
+        <p>${props.quantity * props.unitPrice}</p>
       </div>
     </div>
   );

@@ -1,11 +1,11 @@
 import CartItem from './Components/CartItem/CartItem';
+import CartItemProps from './Components/CartItem/CartItemProps';
 import './Cart.css';
 
-interface Props {
-  cartContent: { productId: number; size: string; quantity: number }[];
-}
-
-const Cart = (props: Props) => {
+const Cart = (props: {
+  cartContent: CartItemProps[];
+  cartSubtotal: number;
+}) => {
   return (
     <div className="cart">
       <div className="cart__main">
@@ -17,13 +17,14 @@ const Cart = (props: Props) => {
               productId={cartItem.productId}
               size={cartItem.size}
               quantity={cartItem.quantity}
+              unitPrice={cartItem.unitPrice}
             />
           );
         })}
       </div>
       <div className="cart__sidebar">
         <p>Order Summary</p>
-        <p>Subtotal: cartSubtotal</p>
+        <p>Subtotal: ${props.cartSubtotal}</p>
         <p>Taxes & Shipping calculated at checkout</p>
         <button>Continue to checkout</button>
       </div>
