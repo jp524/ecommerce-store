@@ -6,7 +6,11 @@ import CartItemProps from './CartItemProps';
 import filterProductList from '../../../../utils/filterProductList';
 import './CartItem.css';
 
-const CartItem = (props: CartItemProps): JSX.Element => {
+const CartItem = (props: {
+  cartItem: CartItemProps;
+  increaseQuantityHandler: (propertyId: number) => void;
+  decreaseQuantityHandler: (propertyId: number) => void;
+}): JSX.Element => {
   const [product, setProduct] = useState({
     id: 0,
     category: '',
@@ -17,7 +21,7 @@ const CartItem = (props: CartItemProps): JSX.Element => {
   });
 
   useEffect(() => {
-    setProduct(filterProductList(props.productId)!);
+    setProduct(filterProductList(props.cartItem.productId)!);
   }, []);
 
   const image = cloud.image(product.image_id);
@@ -32,17 +36,29 @@ const CartItem = (props: CartItemProps): JSX.Element => {
 
       <div className="cart-item__description__left">
         <p>{product.name}</p>
-        <p>{props.size}</p>
+        <p>{props.cartItem.size}</p>
         <div className="cart-item__quantity-toggle">
-          <button>-</button>
-          <p>{props.quantity}</p>
-          <button>+</button>
+          <button
+            onClick={() =>
+              props.decreaseQuantityHandler(props.cartItem.productId)
+            }
+          >
+            -
+          </button>
+          <p data-testid="quantity">{props.cartItem.quantity}</p>
+          <button
+            onClick={() =>
+              props.increaseQuantityHandler(props.cartItem.productId)
+            }
+          >
+            +
+          </button>
         </div>
       </div>
 
       <div className="cart-item__description__right">
         <button>Remove</button>
-        <p>${props.quantity * props.unitPrice}</p>
+        <p>${props.cartItem.quantity * props.cartItem.unitPrice}</p>
       </div>
     </div>
   );

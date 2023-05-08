@@ -5,6 +5,8 @@ import './Cart.css';
 const Cart = (props: {
   cartContent: CartItemProps[];
   cartSubtotal: number;
+  onIncreaseQuantity: (productId: number) => void;
+  onDecreaseQuantity: (productId: number) => void;
 }) => {
   return (
     <div className="cart">
@@ -14,10 +16,9 @@ const Cart = (props: {
           return (
             <CartItem
               key={index}
-              productId={cartItem.productId}
-              size={cartItem.size}
-              quantity={cartItem.quantity}
-              unitPrice={cartItem.unitPrice}
+              cartItem={cartItem}
+              increaseQuantityHandler={props.onIncreaseQuantity}
+              decreaseQuantityHandler={props.onDecreaseQuantity}
             />
           );
         })}

@@ -43,6 +43,47 @@ const App = () => {
     ]);
   };
 
+  const increaseQuantity = (productId: number) => {
+    setCart(
+      cart.map((cartItem) =>
+        cartItem.productId === productId
+          ? {
+              ...cartItem,
+              quantity: cartItem.quantity + 1,
+            }
+          : cartItem
+      )
+    );
+  };
+
+  const itemQuantityIsOne = (productId: number) => {
+    const cartItem = cart
+      .filter((cartItem) => cartItem.productId === productId)
+      .pop();
+    if (cartItem?.quantity === 1) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const decreaseQuantity = (productId: number) => {
+    if (itemQuantityIsOne(productId) === true) {
+      console.log('call function to delete item');
+    } else {
+      setCart(
+        cart.map((cartItem) =>
+          cartItem.productId === productId
+            ? {
+                ...cartItem,
+                quantity: cartItem.quantity - 1,
+              }
+            : cartItem
+        )
+      );
+    }
+  };
+
   return (
     <BrowserRouter>
       <Nav />
@@ -55,7 +96,14 @@ const App = () => {
         />
         <Route
           path="/cart"
-          element={<Cart cartContent={cart} cartSubtotal={cartSubtotal} />}
+          element={
+            <Cart
+              cartContent={cart}
+              cartSubtotal={cartSubtotal}
+              onIncreaseQuantity={increaseQuantity}
+              onDecreaseQuantity={decreaseQuantity}
+            />
+          }
         />
       </Routes>
     </BrowserRouter>
