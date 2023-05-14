@@ -38,17 +38,30 @@ const App = () => {
     calculateCartSubtotal();
   }, [cart]);
 
+  const checkDuplicateCartItem = (productId: number, size: string) => {
+    const cartItem = cart
+      .filter(
+        (cartItem) => cartItem.productId === productId && cartItem.size === size
+      )
+      .pop();
+    if (cartItem !== undefined) {
+      increaseQuantity(cartItem.cartItemId);
+    } else {
+      setCart((prevState) => [
+        ...prevState,
+        {
+          cartItemId: uuidv4(),
+          productId: productId,
+          size: size,
+          quantity: 1,
+          unitPrice: getUnitPrice(productId),
+        },
+      ]);
+    }
+  };
+
   const addToCartHandler = (cartItem: { productId: number; size: string }) => {
-    setCart((prevState) => [
-      ...prevState,
-      {
-        cartItemId: uuidv4(),
-        productId: cartItem.productId,
-        size: cartItem.size,
-        quantity: 1,
-        unitPrice: getUnitPrice(cartItem.productId),
-      },
-    ]);
+    checkDuplicateCartItem(cartItem.productId, cartItem.size);
   };
 
   const increaseQuantity = (cartItemId: string) => {

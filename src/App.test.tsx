@@ -23,6 +23,28 @@ describe('App', () => {
     expect(screen.getByTestId('quantity')).toHaveTextContent('3');
   });
 
+  it('increases item quantity in Cart through ProductDetail page', async () => {
+    render(<App />);
+    const user = userEvent.setup();
+
+    const shopLink = screen.getByRole('link', { name: 'Shop' });
+    await user.click(shopLink);
+
+    const productLink = screen.getByRole('link', {
+      name: 'Green Summer Dress $110',
+    });
+    await user.click(productLink);
+    const dropdown = screen.getByRole('combobox') as HTMLSelectElement;
+    await user.selectOptions(dropdown, ['M']);
+
+    const addToCartButton = screen.getByRole('button', { name: 'Add to Cart' });
+    await user.click(addToCartButton);
+
+    const cartLink = screen.getByRole('link', { name: 'Cart' });
+    await user.click(cartLink);
+    expect(screen.getByTestId('quantity')).toHaveTextContent('3');
+  });
+
   it('decreases item quantity in Cart if quantity > 1', async () => {
     render(<App />);
 
