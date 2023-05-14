@@ -5,20 +5,22 @@ import './Cart.css';
 const Cart = (props: {
   cartContent: CartItemProps[];
   cartSubtotal: number;
-  onIncreaseQuantity: (productId: number) => void;
-  onDecreaseQuantity: (productId: number) => void;
+  onIncreaseQuantity: (cartItemId: string) => void;
+  onDecreaseQuantity: (cartItemId: string) => void;
+  onRemoveItem: (cartItemId: string) => void;
 }) => {
   return (
     <div className="cart">
       <div className="cart__main">
         <h3>Your cart</h3>
-        {props.cartContent.map((cartItem, index) => {
+        {props.cartContent.map((cartItem) => {
           return (
             <CartItem
-              key={index}
+              key={cartItem.cartItemId}
               cartItem={cartItem}
               increaseQuantityHandler={props.onIncreaseQuantity}
               decreaseQuantityHandler={props.onDecreaseQuantity}
+              removeItemHandler={props.onRemoveItem}
             />
           );
         })}

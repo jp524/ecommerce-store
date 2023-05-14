@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import Nav from './components/Nav/Nav';
 import Home from './pages/Home/Home';
 import Shop from './pages/Shop/Shop';
@@ -10,7 +11,13 @@ import CartItemProps from './pages/Cart/Components/CartItem/CartItemProps';
 
 const App = () => {
   const [cart, setCart] = useState<CartItemProps[]>([
-    { productId: 0, size: 'M', quantity: 2, unitPrice: 110 },
+    {
+      cartItemId: uuidv4(),
+      productId: 0,
+      size: 'M',
+      quantity: 2,
+      unitPrice: 110,
+    },
   ]);
   const [cartSubtotal, setCartSubtotal] = useState(0);
 
@@ -35,6 +42,7 @@ const App = () => {
     setCart((prevState) => [
       ...prevState,
       {
+        cartItemId: uuidv4(),
         productId: cartItem.productId,
         size: cartItem.size,
         quantity: 1,
@@ -43,10 +51,10 @@ const App = () => {
     ]);
   };
 
-  const increaseQuantity = (productId: number) => {
+  const increaseQuantity = (cartItemId: string) => {
     setCart(
       cart.map((cartItem) =>
-        cartItem.productId === productId
+        cartItem.cartItemId === cartItemId
           ? {
               ...cartItem,
               quantity: cartItem.quantity + 1,
@@ -56,9 +64,9 @@ const App = () => {
     );
   };
 
-  const itemQuantityIsOne = (productId: number) => {
+  const itemQuantityIsOne = (cartItemId: string) => {
     const cartItem = cart
-      .filter((cartItem) => cartItem.productId === productId)
+      .filter((cartItem) => cartItem.cartItemId === cartItemId)
       .pop();
     if (cartItem?.quantity === 1) {
       return true;
@@ -67,13 +75,13 @@ const App = () => {
     }
   };
 
-  const decreaseQuantity = (productId: number) => {
-    if (itemQuantityIsOne(productId) === true) {
-      console.log('call function to delete item');
+  const decreaseQuantity = (cartItemId: string) => {
+    if (itemQuantityIsOne(cartItemId) === true) {
+      removeItem(cartItemId);
     } else {
       setCart(
         cart.map((cartItem) =>
-          cartItem.productId === productId
+          cartItem.cartItemId === cartItemId
             ? {
                 ...cartItem,
                 quantity: cartItem.quantity - 1,
@@ -82,6 +90,10 @@ const App = () => {
         )
       );
     }
+  };
+
+  const removeItem = (cartItemId: string) => {
+    setCart(cart.filter((cartItem) => cartItem.cartItemId !== cartItemId));
   };
 
   return (
@@ -102,6 +114,7 @@ const App = () => {
               cartSubtotal={cartSubtotal}
               onIncreaseQuantity={increaseQuantity}
               onDecreaseQuantity={decreaseQuantity}
+              onRemoveItem={removeItem}
             />
           }
         />

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 import userEvent from '@testing-library/user-event';
-import { beforeAll, vi } from 'vitest';
+import { beforeAll } from 'vitest';
 
 describe('App', () => {
   beforeAll(async () => {
@@ -33,14 +33,12 @@ describe('App', () => {
   });
 
   it('removes item from cart if quantity == 1', async () => {
-    const logSpy = vi.spyOn(console, 'log');
     render(<App />);
 
     const user = userEvent.setup();
     const minusButton = screen.getByRole('button', { name: '-' });
     await user.click(minusButton);
     await user.click(minusButton);
-    expect(screen.getByTestId('quantity')).toHaveTextContent('1');
-    expect(logSpy).toHaveBeenCalledWith('call function to delete item');
+    expect(screen.queryByText('Green Summer Dress')).not.toBeInTheDocument();
   });
 });

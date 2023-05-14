@@ -8,8 +8,9 @@ import './CartItem.css';
 
 const CartItem = (props: {
   cartItem: CartItemProps;
-  increaseQuantityHandler: (propertyId: number) => void;
-  decreaseQuantityHandler: (propertyId: number) => void;
+  increaseQuantityHandler: (cartItemId: string) => void;
+  decreaseQuantityHandler: (cartItemId: string) => void;
+  removeItemHandler: (cartItemId: string) => void;
 }): JSX.Element => {
   const [product, setProduct] = useState({
     id: 0,
@@ -40,7 +41,7 @@ const CartItem = (props: {
         <div className="cart-item__quantity-toggle">
           <button
             onClick={() =>
-              props.decreaseQuantityHandler(props.cartItem.productId)
+              props.decreaseQuantityHandler(props.cartItem.cartItemId)
             }
           >
             -
@@ -48,7 +49,7 @@ const CartItem = (props: {
           <p data-testid="quantity">{props.cartItem.quantity}</p>
           <button
             onClick={() =>
-              props.increaseQuantityHandler(props.cartItem.productId)
+              props.increaseQuantityHandler(props.cartItem.cartItemId)
             }
           >
             +
@@ -57,7 +58,11 @@ const CartItem = (props: {
       </div>
 
       <div className="cart-item__description__right">
-        <button>Remove</button>
+        <button
+          onClick={() => props.removeItemHandler(props.cartItem.cartItemId)}
+        >
+          Remove
+        </button>
         <p>${props.cartItem.quantity * props.cartItem.unitPrice}</p>
       </div>
     </div>

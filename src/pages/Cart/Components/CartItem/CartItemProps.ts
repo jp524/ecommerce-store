@@ -1,4 +1,5 @@
 interface CartItemProps {
+  cartItemId: string;
   productId: number;
   size: string;
   quantity: number;
