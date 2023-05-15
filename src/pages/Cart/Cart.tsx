@@ -9,7 +9,9 @@ const Cart = (props: {
   onDecreaseQuantity: (cartItemId: string) => void;
   onRemoveItem: (cartItemId: string) => void;
 }) => {
-  return (
+  const emptyCartView = <div className="empty-cart">The Cart is empty.</div>;
+
+  const cartView = (
     <div className="cart">
       <div className="cart__main">
         <h3>Your cart</h3>
@@ -33,5 +35,6 @@ const Cart = (props: {
       </div>
     </div>
   );
+  return <div>{props.cartContent.length === 0 ? emptyCartView : cartView}</div>;
 };
 export default Cart;

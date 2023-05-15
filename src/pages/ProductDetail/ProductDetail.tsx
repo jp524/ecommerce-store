@@ -21,6 +21,7 @@ const ProductDetail = (props: Props) => {
     image_id: '',
   });
   const [size, setSize] = useState('');
+  const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
     setProduct(filterProductList(Number(id))!);
@@ -37,7 +38,18 @@ const ProductDetail = (props: Props) => {
   const addToCart = () => {
     const cartItem = { productId: product.id, size: size };
     props.onAddToCart(cartItem);
+    setShowMessage(true);
   };
+
+  useEffect(() => {
+    const timeId = setTimeout(() => {
+      setShowMessage(false);
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeId);
+    };
+  });
 
   const image = cloud.image(product.image_id);
   const transformedImage = image.resize(fill().width(300).aspectRatio('3:4'));
@@ -69,6 +81,9 @@ const ProductDetail = (props: Props) => {
             ))}
           </select>
           <button onClick={addToCart}>Add to Cart</button>
+          {showMessage && (
+            <p className="product-detail__cart-message">Added to Cart</p>
+          )}
         </div>
       </div>
     </div>

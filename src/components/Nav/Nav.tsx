@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom';
 import './Nav.css';
 
-const Nav = () => {
+interface Props {
+  cartQuantity: number;
+}
+
+const Nav = (props: Props) => {
   return (
     <nav>
       <Link to="/shop">
@@ -10,9 +14,12 @@ const Nav = () => {
       <Link to="/">
         <p>Home</p>
       </Link>
-      <Link to="/cart">
-        <p>Cart</p>
-      </Link>
+      <div className="nav--cart">
+        <Link to="/cart">
+          <p>Cart</p>
+        </Link>
+        <p>{props.cartQuantity}</p>
+      </div>
     </nav>
   );
 };

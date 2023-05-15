@@ -10,16 +10,18 @@ import filterProductList from './utils/filterProductList';
 import CartItemProps from './pages/Cart/Components/CartItem/CartItemProps';
 
 const App = () => {
-  const [cart, setCart] = useState<CartItemProps[]>([
-    {
-      cartItemId: uuidv4(),
-      productId: 0,
-      size: 'M',
-      quantity: 2,
-      unitPrice: 110,
-    },
-  ]);
+  // const [cart, setCart] = useState<CartItemProps[]>([
+  //   {
+  //     cartItemId: uuidv4(),
+  //     productId: 0,
+  //     size: 'M',
+  //     quantity: 2,
+  //     unitPrice: 110,
+  //   },
+  // ]);
+  const [cart, setCart] = useState<CartItemProps[]>([]);
   const [cartSubtotal, setCartSubtotal] = useState(0);
+  const [cartQuantity, setCartQuantity] = useState(0);
 
   const getUnitPrice = (producId: number) => {
     const product = filterProductList(producId)!;
@@ -28,10 +30,13 @@ const App = () => {
 
   const calculateCartSubtotal = () => {
     let subtotal = 0;
+    let quantity = 0;
     cart.map((item) => {
       subtotal += item.quantity * item.unitPrice;
+      quantity += item.quantity;
     });
     setCartSubtotal(subtotal);
+    setCartQuantity(quantity);
   };
 
   useEffect(() => {
@@ -111,7 +116,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Nav />
+      <Nav cartQuantity={cartQuantity} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
