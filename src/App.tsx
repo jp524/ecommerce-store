@@ -8,6 +8,7 @@ import Cart from './pages/Cart/Cart';
 import IdGuard from './components/IdGuard/IdGuard';
 import filterProductList from './utils/filterProductList';
 import CartItemProps from './pages/Cart/Components/CartItem/CartItemProps';
+import './styles/App.scss';
 
 const App = () => {
   // const [cart, setCart] = useState<CartItemProps[]>([
@@ -115,29 +116,31 @@ const App = () => {
   };
 
   return (
-    <BrowserRouter>
-      <Nav cartQuantity={cartQuantity} />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/shop" element={<Shop />} />
-        <Route
-          path="/shop/:id"
-          element={<IdGuard onAddToCart={addToCartHandler} />}
-        />
-        <Route
-          path="/cart"
-          element={
-            <Cart
-              cartContent={cart}
-              cartSubtotal={cartSubtotal}
-              onIncreaseQuantity={increaseQuantity}
-              onDecreaseQuantity={decreaseQuantity}
-              onRemoveItem={removeItem}
-            />
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+    <div className="container">
+      <BrowserRouter>
+        <Nav cartQuantity={cartQuantity} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route
+            path="/shop/:id"
+            element={<IdGuard onAddToCart={addToCartHandler} />}
+          />
+          <Route
+            path="/cart"
+            element={
+              <Cart
+                cartContent={cart}
+                cartSubtotal={cartSubtotal}
+                onIncreaseQuantity={increaseQuantity}
+                onDecreaseQuantity={decreaseQuantity}
+                onRemoveItem={removeItem}
+              />
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 };
 
