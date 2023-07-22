@@ -7,7 +7,6 @@ const Shop = () => {
   const [products, setProducts] = useState(productList);
   return (
     <div className="shop">
-      <h1>This is the Shop component.</h1>
       {products.map((product) => (
         <Link key={product.id} to={`/shop/${product.id}`}>
           <ProductTile product={product} />

@@ -2,7 +2,6 @@ import { AdvancedImage } from '@cloudinary/react';
 import { fill } from '@cloudinary/url-gen/actions/resize';
 import cloud from '../../../../utils/cloud';
 import ProductProps from './ProductProps';
-import './ProductTile.css';
 
 const ProductTile = (props: ProductProps): JSX.Element => {
   const image = cloud.image(props.product.image_id);

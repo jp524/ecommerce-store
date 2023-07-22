@@ -1,0 +1,15 @@
+.product-tile {
+  display: flex;
+  flex-direction: column;
+
+  &__image {
+    border-radius: $border-radius;
+  }
+
+  &__description {
+    padding-top: $space-xs;
+    text-align: start;
+    color: $color-dark;
+    font-size: $font-size-s;
+  }
+}
