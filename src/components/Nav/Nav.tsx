@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import './Nav.css';
+import { FaCartShopping } from 'react-icons/fa6';
 
 interface Props {
   cartQuantity: number;
@@ -7,18 +7,18 @@ interface Props {
 
 const Nav = (props: Props) => {
   return (
-    <nav>
+    <nav className="nav">
       <Link to="/shop">
         <p>Shop</p>
       </Link>
       <Link to="/">
         <p>Home</p>
       </Link>
-      <div className="nav--cart">
-        <Link to="/cart">
-          <p>Cart</p>
+      <div>
+        <Link to="/cart" className="nav__cart">
+          <FaCartShopping size={22} />
+          <p className="nav__cart__quantity">{props.cartQuantity}</p>
         </Link>
-        <p>{props.cartQuantity}</p>
       </div>
     </nav>
   );

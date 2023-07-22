@@ -1,0 +1,19 @@
+.nav {
+  position: sticky;
+  top: 0;
+  background-color: $color-white;
+  padding: $space-s 0;
+  margin-bottom: $space-s;
+  border-bottom: solid 1px $color-light;
+  display: flex;
+  justify-content: space-between;
+
+  &__cart {
+    display: flex;
+    gap: $space-xxxs;
+
+    &__quantity {
+      font-size: $font-size-xs;
+    }
+  }
+}

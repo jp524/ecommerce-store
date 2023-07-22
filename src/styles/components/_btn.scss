@@ -1,0 +1,91 @@
+.btn {
+  display: inline-block;
+  padding: $space-xxs $space-m;
+  border-radius: $border-radius;
+  background-origin: border-box; // Invisible borders with linear gradients
+  background-color: transparent;
+  border: solid 2px transparent;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+  transition: filter 400ms, color 200ms;
+
+  &:hover,
+  &:focus,
+  &:focus-within,
+  &:active {
+    transition: filter 250ms, color 200ms;
+  }
+
+  &--primary {
+    color: $color-white;
+    background-image: linear-gradient(
+      to right,
+      $color-primary,
+      $color-primary-rotate
+    );
+
+    &:hover,
+    &:focus,
+    &:focus-within,
+    &:active {
+      color: $color-white;
+      filter: saturate(1.4) brightness(115%);
+    }
+  }
+
+  &--secondary {
+    color: $color-white;
+    background-image: linear-gradient(
+      to right,
+      $color-secondary,
+      $color-secondary-rotate
+    );
+
+    &:hover,
+    &:focus,
+    &:focus-within,
+    &:active {
+      color: $color-white;
+      filter: saturate(1.2) brightness(110%);
+    }
+  }
+
+  &--light {
+    color: $color-dark;
+    background-color: $color-light;
+
+    &:hover,
+    &:focus,
+    &:focus-within,
+    &:active {
+      color: $color-dark;
+      filter: brightness(92%);
+    }
+  }
+
+  &--dark {
+    color: $color-white;
+    border-color: $color-dark;
+    background-color: $color-dark;
+
+    &:hover,
+    &:focus,
+    &:focus-within,
+    &:active {
+      color: $color-white;
+    }
+  }
+
+  &--small {
+    font-size: $font-size-s;
+    padding: $space-xxxs $space-xxs;
+  }
+
+  @media (max-width: 50rem) {
+    padding: $space-xxxs $space-xxxs;
+    font-size: $font-size-xs;
+    text-align: center;
+  }
+}

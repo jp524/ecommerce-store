@@ -6,6 +6,7 @@ import Home from './pages/Home/Home';
 import Shop from './pages/Shop/Shop';
 import Cart from './pages/Cart/Cart';
 import IdGuard from './components/IdGuard/IdGuard';
+import Footer from './components/Footer/Footer';
 import filterProductList from './utils/filterProductList';
 import CartItemProps from './pages/Cart/Components/CartItem/CartItemProps';
 import './styles/App.scss';
@@ -118,6 +119,7 @@ const App = () => {
   return (
     <div className="container">
       <BrowserRouter>
+        <br></br>
         <Nav cartQuantity={cartQuantity} />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -139,6 +141,7 @@ const App = () => {
             }
           />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   );
