@@ -1,6 +1,6 @@
+import React, { useState, useEffect } from 'react';
 import CartItem from './Components/CartItem/CartItem';
 import CartItemProps from './Components/CartItem/CartItemProps';
-import './Cart.css';
 
 const Cart = (props: {
   cartContent: CartItemProps[];
@@ -9,12 +9,24 @@ const Cart = (props: {
   onDecreaseQuantity: (cartItemId: string) => void;
   onRemoveItem: (cartItemId: string) => void;
 }) => {
+  const [showMessage, setShowMessage] = useState(false);
+
+  useEffect(() => {
+    const timeId = setTimeout(() => {
+      setShowMessage(false);
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeId);
+    };
+  });
+
   const emptyCartView = <div className="empty-cart">The Cart is empty.</div>;
 
   const cartView = (
     <div className="cart">
       <div className="cart__main">
-        <h3>Your cart</h3>
+        <h3 className="cart__main__header">Your cart</h3>
         {props.cartContent.map((cartItem) => {
           return (
             <CartItem
@@ -28,10 +40,22 @@ const Cart = (props: {
         })}
       </div>
       <div className="cart__sidebar">
-        <p>Order Summary</p>
-        <p>Subtotal: ${props.cartSubtotal}</p>
+        <div className="cart__sidebar__summary">
+          <p>Order Summary</p>
+          <p>Subtotal: ${props.cartSubtotal}</p>
+        </div>
+        <br />
         <p>Taxes & Shipping calculated at checkout</p>
-        <button>Continue to checkout</button>
+        <br />
+        <button
+          onClick={() => setShowMessage(true)}
+          className="btn btn--primary"
+        >
+          Continue to checkout
+        </button>
+        {showMessage && (
+          <p className="cart__sidebar__message">Browsing and cart demo only!</p>
+        )}
       </div>
     </div>
   );

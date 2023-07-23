@@ -12,15 +12,6 @@ import CartItemProps from './pages/Cart/Components/CartItem/CartItemProps';
 import './styles/App.scss';
 
 const App = () => {
-  // const [cart, setCart] = useState<CartItemProps[]>([
-  //   {
-  //     cartItemId: uuidv4(),
-  //     productId: 0,
-  //     size: 'M',
-  //     quantity: 2,
-  //     unitPrice: 110,
-  //   },
-  // ]);
   const [cart, setCart] = useState<CartItemProps[]>([]);
   const [cartSubtotal, setCartSubtotal] = useState(0);
   const [cartQuantity, setCartQuantity] = useState(0);

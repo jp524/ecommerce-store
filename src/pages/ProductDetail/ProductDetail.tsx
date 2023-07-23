@@ -4,7 +4,6 @@ import { AdvancedImage } from '@cloudinary/react';
 import { fill } from '@cloudinary/url-gen/actions/resize';
 import cloud from '../../utils/cloud';
 import filterProductList from '../../utils/filterProductList';
-import './ProductDetail.css';
 
 interface Props {
   onAddToCart: (cartItem: { productId: number; size: string }) => void;
@@ -67,20 +66,25 @@ const ProductDetail = (props: Props) => {
         </div>
 
         <div className="product-detail__variables">
-          <label>Sizes</label>
-          <select
-            name="size"
-            value={size}
-            onChange={sizeHandler}
-            data-testid="select"
-          >
-            {product.sizes.map((sizeOption) => (
-              <option value={sizeOption} key={sizeOption}>
-                {sizeOption}
-              </option>
-            ))}
-          </select>
-          <button onClick={addToCart}>Add to Cart</button>
+          <div className="product-detail__select-group">
+            <label>Sizes</label>
+            <select
+              name="size"
+              value={size}
+              onChange={sizeHandler}
+              data-testid="select"
+              className="btn btn--light"
+            >
+              {product.sizes.map((sizeOption) => (
+                <option value={sizeOption} key={sizeOption}>
+                  {sizeOption}
+                </option>
+              ))}
+            </select>
+          </div>
+          <button onClick={addToCart} className="btn btn--dark">
+            Add to Cart
+          </button>
           {showMessage && (
             <p className="product-detail__cart-message">Added to Cart</p>
           )}

@@ -1,0 +1,40 @@
+.cart {
+  display: grid;
+  grid-template-columns: 60% 1fr;
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    &__header {
+      text-align: start;
+    }
+  }
+
+  &__sidebar {
+    &__summary {
+      font-weight: 600;
+    }
+
+    &__message {
+      animation: appear-then-fade 3s both;
+      color: $color-text-muted;
+    }
+  }
+
+  @media (max-width: 50rem) {
+    grid-template-columns: 1fr;
+  }
+
+  @keyframes appear-then-fade {
+    0%,
+    100% {
+      opacity: 0;
+    }
+    5%,
+    60% {
+      opacity: 1;
+    }
+  }
+}

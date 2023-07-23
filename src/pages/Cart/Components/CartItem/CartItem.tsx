@@ -4,7 +4,6 @@ import { fill } from '@cloudinary/url-gen/actions/resize';
 import cloud from '../../../../utils/cloud';
 import CartItemProps from './CartItemProps';
 import filterProductList from '../../../../utils/filterProductList';
-import './CartItem.css';
 
 const CartItem = (props: {
   cartItem: CartItemProps;
@@ -37,12 +36,13 @@ const CartItem = (props: {
 
       <div className="cart-item__description__left">
         <p>{product.name}</p>
-        <p>{props.cartItem.size}</p>
+        <p>Size: {props.cartItem.size}</p>
         <div className="cart-item__quantity-toggle">
           <button
             onClick={() =>
               props.decreaseQuantityHandler(props.cartItem.cartItemId)
             }
+            className="btn btn--light btn--small"
           >
             -
           </button>
@@ -51,6 +51,7 @@ const CartItem = (props: {
             onClick={() =>
               props.increaseQuantityHandler(props.cartItem.cartItemId)
             }
+            className="btn btn--light btn--small"
           >
             +
           </button>
@@ -60,6 +61,7 @@ const CartItem = (props: {
       <div className="cart-item__description__right">
         <button
           onClick={() => props.removeItemHandler(props.cartItem.cartItemId)}
+          className="btn btn--dark btn--small"
         >
           Remove
         </button>
