@@ -121,26 +121,28 @@ const App = () => {
       <BrowserRouter>
         <br></br>
         <Nav cartQuantity={cartQuantity} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route
-            path="/shop/:id"
-            element={<IdGuard onAddToCart={addToCartHandler} />}
-          />
-          <Route
-            path="/cart"
-            element={
-              <Cart
-                cartContent={cart}
-                cartSubtotal={cartSubtotal}
-                onIncreaseQuantity={increaseQuantity}
-                onDecreaseQuantity={decreaseQuantity}
-                onRemoveItem={removeItem}
-              />
-            }
-          />
-        </Routes>
+        <div className="body">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route
+              path="/shop/:id"
+              element={<IdGuard onAddToCart={addToCartHandler} />}
+            />
+            <Route
+              path="/cart"
+              element={
+                <Cart
+                  cartContent={cart}
+                  cartSubtotal={cartSubtotal}
+                  onIncreaseQuantity={increaseQuantity}
+                  onDecreaseQuantity={decreaseQuantity}
+                  onRemoveItem={removeItem}
+                />
+              }
+            />
+          </Routes>
+        </div>
         <Footer />
       </BrowserRouter>
     </div>

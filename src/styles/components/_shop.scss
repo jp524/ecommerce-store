@@ -1,4 +1,5 @@
 .shop {
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: $space-m;
