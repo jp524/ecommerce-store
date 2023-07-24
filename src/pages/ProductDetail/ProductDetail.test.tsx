@@ -27,8 +27,11 @@ describe('ProductDetail', () => {
 
     const user = userEvent.setup();
     await user.selectOptions(dropdown, ['M']);
+    // @ts-ignore
     expect(screen.getByRole('option', { name: 'S' }).selected).toBe(false);
+    // @ts-ignore
     expect(screen.getByRole('option', { name: 'M' }).selected).toBe(true);
+    // @ts-ignore
     expect(screen.getByRole('option', { name: 'L' }).selected).toBe(false);
   });
 });

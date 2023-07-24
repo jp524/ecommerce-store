@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductTile from './Components/ProductTile/ProductTile';
 import productList from '../../utils/productList';
 
 const Shop = () => {
-  const [products, setProducts] = useState(productList);
+  const products = productList;
+
   return (
     <div className="shop">
       {products.map((product) => (
