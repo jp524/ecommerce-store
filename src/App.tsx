@@ -109,7 +109,7 @@ const App = () => {
 
   return (
     <div className="container">
-      <BrowserRouter>
+      <BrowserRouter basename={'/ecommerce-store/'}>
         <br></br>
         <Nav cartQuantity={cartQuantity} />
         <div className="body">
